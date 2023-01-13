@@ -1,0 +1,83 @@
+#include&lt;stdio.h&gt;
+#include&lt;GL/glut.h&gt;
+#include&lt;math.h&gt;
+#define pi 3.142857
+
+void myInit (void)
+{
+glClearColor(0.0, 0.0, 0.0, 1.0);
+glColor3f(0.0, 1.0, 0.0);
+glPointSize(1.0);
+glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+gluOrtho2D(-780, 780, -420, 420);
+}
+void display (void)
+{
+glClear(GL_COLOR_BUFFER_BIT);
+glBegin(GL_POINTS);
+float x, y, i;
+
+for ( i = 0; i &lt; (2 * pi); i += 0.001)
+{
+x = 200 * cos(i);
+y = 200 * sin(i);
+glVertex2i(x, y);
+}
+glEnd();
+glFlush();
+}
+int main (int argc, char** argv)
+{
+glutInit(&amp;argc, argv);
+glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+// giving window size in X- and Y- direction
+glutInitWindowSize(1366, 768);
+glutInitWindowPosition(0, 0);
+// Giving name to window
+glutCreateWindow(&quot;Circle Drawing&quot;);
+myInit();
+glutDisplayFunc(display);
+glutMainLoop();
+}
+
+29. Program to draw an ellipse in a newly created window.
+#include&lt;windows.h&gt;
+#include&lt;GL/glut.h&gt;
+#include&lt;math.h&gt;
+void Ellipse() {
+GLfloat xi, yi, theta = 0;
+
+GLfloat x_c = 0, y_c = 0, r_x = 0.8, r_y = 1.8;
+int COUNT;
+glClear(GL_COLOR_BUFFER_BIT);
+for (COUNT = 1 ; COUNT &lt;= 10000 ; COUNT++) {
+theta = theta + 0.001;
+xi = x_c + r_x*cos(theta);
+yi = y_c + r_y*sin(theta);
+glBegin(GL_POINTS);
+glVertex2f(xi, yi);
+glEnd();
+}
+glFlush();
+}
+void Initial() {
+glClearColor(1.0, 0.5, 0.1, 0);
+glColor3f(1,1,1);
+glPointSize(5.0);
+glMatrixMode(GL_PROJECTION);
+glLoadIdentity();
+gluOrtho2D(-2, +2, -2, +2);
+}
+int main(int c, char *v[])
+{
+glutInit(&amp;c,v);
+glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+glutInitWindowSize(400, 400);
+glutInitWindowPosition(0, 0);
+glutCreateWindow(&quot;Draw Ellipse&quot;);
+Initial();
+glutDisplayFunc(Ellipse);
+glutMainLoop();
+return 0;
+}
